@@ -69,12 +69,14 @@ formatItem(const WorkItem &item)
 bool
 LogWindow::refresh()
 {
-    const QList<WorkItem> items = m_db->getItems();
+    typedef QList<WorkItem> WorkItemList;
+
+    const WorkItemList items = m_db->getItems();
 
     QString html;
 
-    foreach(const WorkItem &item, items) {
-        html += formatItem(item);
+    for (int i = items.size() - 1; i >= 0; --i) {
+        html += formatItem(items.at(i));
     }
 
     m_document->setHtml(html);

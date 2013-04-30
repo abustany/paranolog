@@ -11,6 +11,7 @@ public:
     void setBlinking(bool blinking);
 
 signals:
+    void showSettings();
     void showLog();
     void quit();
 

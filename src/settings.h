@@ -2,11 +2,16 @@
 
 #include <QtCore>
 
-class Settings {
+class Settings : public QObject {
+    Q_OBJECT
 public:
     static Settings* get();
 
-    unsigned long nagInterval() const;
+    unsigned int nagInterval() const;
+    void setNagInterval(unsigned int ms);
+
+signals:
+    void changed();
 
 private:
     Settings();

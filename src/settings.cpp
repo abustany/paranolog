@@ -20,8 +20,20 @@ Settings::get()
     return &instance;
 }
 
-unsigned long
+unsigned int
 Settings::nagInterval() const
 {
     return m_settings->value(SettingsKeyNagInterval, DefaultNagInterval).toInt();
+}
+
+void
+Settings::setNagInterval(unsigned int ms)
+{
+    if (ms == nagInterval()) {
+        return;
+    }
+
+    m_settings->setValue(SettingsKeyNagInterval, ms);
+
+    emit changed();
 }

@@ -20,6 +20,7 @@ StatusIcon::StatusIcon()
 
     m_contextMenu->addAction(tr("Show log"), this, SIGNAL(showLog()));
     m_contextMenu->addSeparator();
+    m_contextMenu->addAction(tr("Show settings"), this, SIGNAL(showSettings()));
     m_contextMenu->addAction(tr("Quit"), this, SIGNAL(quit()));
 
     setContextMenu(m_contextMenu.data());

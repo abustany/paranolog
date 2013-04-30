@@ -9,11 +9,14 @@ Paranolog::Paranolog()
     , m_db(new WorkDb)
     , m_nagWindow(new NagWindow)
     , m_logWindow(new LogWindow(m_db.data()))
+    , m_settingsWindow(new SettingsWindow)
 {
     connect(m_statusIcon.data(), SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onStatusIconActivated(QSystemTrayIcon::ActivationReason)));
     connect(m_statusIcon.data(), SIGNAL(showLog()),
             this, SLOT(showLog()));
+    connect(m_statusIcon.data(), SIGNAL(showSettings()),
+            this, SLOT(showSettings()));
     connect(m_statusIcon.data(), SIGNAL(quit()),
             qApp, SLOT(quit()));
 
@@ -24,6 +27,8 @@ Paranolog::Paranolog()
 
     connect(m_nagWindow.data(), SIGNAL(newData(QDateTime, QDateTime, QString)),
             this, SLOT(onNewData(QDateTime, QDateTime, QString)));
+
+    connect(Settings::get(), SIGNAL(changed()), this, SLOT(onSettingsChanged()));
 }
 
 bool
@@ -73,4 +78,18 @@ Paranolog::showLog()
 {
     m_logWindow->refresh();
     m_logWindow->show();
+}
+
+void
+Paranolog::showSettings()
+{
+    m_settingsWindow->show();
+}
+
+void
+Paranolog::onSettingsChanged()
+{
+    Settings *s = Settings::get();
+
+    m_nagTimer.setInterval(s->nagInterval());
 }

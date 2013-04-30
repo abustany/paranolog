@@ -15,6 +15,7 @@ HEADERS += \
 	src/nagwindow.h \
 	src/paranolog.h \
 	src/settings.h \
+	src/settingswindow.h \
 	src/statusicon.h \
 	src/workdb.h
 
@@ -24,6 +25,7 @@ SOURCES += \
 	src/nagwindow.cpp \
 	src/paranolog.cpp \
 	src/settings.cpp \
+	src/settingswindow.cpp \
 	src/statusicon.cpp \
 	src/workdb.cpp
 

@@ -9,8 +9,7 @@ NagWindow::NagWindow(QWidget *parent)
     m_titleLabel = new QLabel(makeTitle());
     mainLayout->addWidget(m_titleLabel);
 
-    QTextEdit *answerEdit = new QTextEdit;
-    answerEdit->setAcceptRichText(false);
+    QPlainTextEdit *answerEdit = new QPlainTextEdit;
     m_document = answerEdit->document();
     mainLayout->addWidget(answerEdit);
 

@@ -7,8 +7,6 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    mainLayout->addWidget(new QLabel(tr("Settings")));
-
     QFormLayout *formLayout = new QFormLayout;
 
     m_nagIntervalSpinBox = new QSpinBox;

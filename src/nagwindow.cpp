@@ -26,6 +26,8 @@ NagWindow::NagWindow(QWidget *parent)
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
+
+    setWindowTitle(tr("ParanoLog report"));
 }
 
 void

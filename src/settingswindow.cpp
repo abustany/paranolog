@@ -29,6 +29,8 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 
     connect(Settings::get(), SIGNAL(changed()), this, SLOT(update()));
     update();
+
+    setWindowTitle(tr("ParanoLog settings"));
 }
 
 void

@@ -31,6 +31,8 @@ LogWindow::LogWindow(WorkDb *db, QWidget *parent)
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
+
+    setWindowTitle(tr("Log view"));
 }
 
 static QString

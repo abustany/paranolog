@@ -1,0 +1,4 @@
+A work tracker for self quantified paranoids.
+
+Blinks a status icon at a given interval (by default 30 min), and allows the
+paranoid to enter what he did since last report.

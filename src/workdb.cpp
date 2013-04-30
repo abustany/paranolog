@@ -58,6 +58,13 @@ WorkDb::open()
         return false;
     }
 
+    m_getAllItemsQuery = QSqlQuery(m_db);
+
+    if (not m_getAllItemsQuery.prepare(QString::fromLatin1("SELECT * FROM work"))) {
+        qWarning() << "Could not prepare DB statement: " << m_db.lastError().text();
+        return false;
+    }
+
     return true;
 }
 
@@ -87,4 +94,27 @@ WorkDb::addItem(const QDateTime &start, const QDateTime &end, const QString &wha
     }
 
     return success;
+}
+
+QList<WorkItem>
+WorkDb::getItems()
+{
+    QList<WorkItem> items;
+
+    if (not m_getAllItemsQuery.exec()) {
+        qWarning() << "Could not fetch items from DB: " << m_db.lastError().text();
+        return items;
+    }
+
+    while (m_getAllItemsQuery.next()) {
+        WorkItem i;
+
+        i.start = m_getAllItemsQuery.value(0).toDateTime();
+        i.end = m_getAllItemsQuery.value(1).toDateTime();
+        i.what = m_getAllItemsQuery.value(2).toString();
+
+        items.append(i);
+    }
+
+    return items;
 }

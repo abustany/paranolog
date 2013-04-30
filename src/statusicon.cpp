@@ -8,12 +8,23 @@ StatusIcon::StatusIcon()
     : QSystemTrayIcon()
     , m_idleIcon(IconPathIdle)
     , m_redIcon(IconPathRed)
+    , m_contextMenu(new QMenu)
 {
     setIcon(m_idleIcon);
 
     m_blinkTimer.setSingleShot(false);
     m_blinkTimer.setInterval(BlinkInterval);
     connect(&m_blinkTimer, SIGNAL(timeout()), this, SLOT(onBlinkTimerTimeout()));
+
+    m_contextMenu->setTitle(QCoreApplication::applicationName());
+
+    m_contextMenu->addAction(tr("Show log"), this, SIGNAL(showLog()));
+    m_contextMenu->addSeparator();
+    m_contextMenu->addAction(tr("Quit"), this, SIGNAL(quit()));
+
+    setContextMenu(m_contextMenu.data());
+
+    setToolTip(QCoreApplication::applicationName());
 
     show();
 }

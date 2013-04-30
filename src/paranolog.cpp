@@ -8,9 +8,14 @@ Paranolog::Paranolog()
     : m_statusIcon(new StatusIcon)
     , m_db(new WorkDb)
     , m_nagWindow(new NagWindow)
+    , m_logWindow(new LogWindow(m_db.data()))
 {
     connect(m_statusIcon.data(), SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(onStatusIconActivated(QSystemTrayIcon::ActivationReason)));
+    connect(m_statusIcon.data(), SIGNAL(showLog()),
+            this, SLOT(showLog()));
+    connect(m_statusIcon.data(), SIGNAL(quit()),
+            qApp, SLOT(quit()));
 
     m_nagTimer.setSingleShot(false);
     m_nagTimer.setInterval(Settings::get()->nagInterval());
@@ -61,4 +66,11 @@ Paranolog::onNewData(const QDateTime &start, const QDateTime &end, const QString
     }
 
     m_db->addItem(start, end, what);
+}
+
+void
+Paranolog::showLog()
+{
+    m_logWindow->refresh();
+    m_logWindow->show();
 }

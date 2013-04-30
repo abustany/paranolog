@@ -10,6 +10,9 @@ public:
 
     bool refresh();
 
+public: // QWidget overrides
+    QSize sizeHint() const;
+
 private:
     WorkDb *m_db;
     QTextDocument *m_document;

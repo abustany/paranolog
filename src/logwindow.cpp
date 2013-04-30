@@ -83,3 +83,9 @@ LogWindow::refresh()
 
     return true;
 }
+
+QSize
+LogWindow::sizeHint() const
+{
+    return QSize(640, 480);
+}

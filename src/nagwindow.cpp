@@ -20,6 +20,7 @@ NagWindow::NagWindow(QWidget *parent)
     buttonLayout->addWidget(goAwayButton);
 
     QPushButton *saveButton = new QPushButton(tr("Save"));
+    saveButton->setShortcut(QKeySequence::Save);
     connect(saveButton, SIGNAL(clicked()), this, SLOT(onSaveClicked()));
     buttonLayout->addWidget(saveButton);
 

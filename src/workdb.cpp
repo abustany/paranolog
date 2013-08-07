@@ -2,7 +2,9 @@
 
 #include <QDesktopServices>
 
-static const QString SqliteDriverName = QString::fromLatin1("QSQLITE3");
+static const QStringList SqliteDriverNames = QStringList()
+        << QString::fromLatin1("QSQLITE")
+        << QString::fromLatin1("QSQLITE3");
 static const QString CreateSchemaQuery = QString::fromLatin1(
     "CREATE TABLE IF NOT EXISTS work (start TEXT, end TEXT, what TEXT)"
 );
@@ -16,7 +18,16 @@ WorkDb::open()
 {
     static const QString dbName = QString::fromLatin1("paranolog.db");
 
-    if (not QSqlDatabase::isDriverAvailable(SqliteDriverName)) {
+    QString driverName;
+
+    foreach(const QString &driver, SqliteDriverNames) {
+        if (QSqlDatabase::isDriverAvailable(driver)) {
+            driverName = driver;
+            break;
+        }
+    }
+
+    if (driverName.isNull()) {
         qWarning() << "SQLite driver is not available";
         return false;
     }
@@ -36,7 +47,7 @@ WorkDb::open()
 
     qDebug() << "Opening work DB in " << dbPath;
 
-    m_db = QSqlDatabase::addDatabase(SqliteDriverName);
+    m_db = QSqlDatabase::addDatabase(driverName);
     m_db.setDatabaseName(dbPath);
 
     if (not m_db.open()) {

@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = paranolog
 DEPENDPATH += . src
 INCLUDEPATH += . src
 

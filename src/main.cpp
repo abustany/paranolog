@@ -5,6 +5,8 @@
 #include <errno.h>
 #include <signal.h>
 #include <string.h>
+
+#ifdef Q_OS_LINUX
 #include <sys/signalfd.h>
 
 static void
@@ -26,6 +28,12 @@ setupUnixSignalHandler()
     QSocketNotifier *notifier = new QSocketNotifier(sigFd, QSocketNotifier::Read, qApp);
     QObject::connect(notifier, SIGNAL(activated(int)), qApp, SLOT(quit()));
 }
+#else
+static void
+setupUnixSignalHandler()
+{
+}
+#endif
 
 int
 main(int argc, char **argv)

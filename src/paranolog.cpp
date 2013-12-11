@@ -78,6 +78,8 @@ Paranolog::showLog()
 {
     m_logWindow->refresh();
     m_logWindow->show();
+    m_logWindow->raise();
+    m_logWindow->activateWindow();
 }
 
 void

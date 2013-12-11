@@ -37,6 +37,8 @@ NagWindow::nag()
     m_titleLabel->setText(makeTitle());
     m_document->clear();
     show();
+    raise();
+    activateWindow();
 }
 
 QString

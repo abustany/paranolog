@@ -33,13 +33,11 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 }
 
 void
-SettingsWindow::hide()
+SettingsWindow::hideEvent(QHideEvent*)
 {
     Settings *s = Settings::get();
 
     s->setNagInterval(1000 * 60 * m_nagIntervalSpinBox->value());
-
-    QWidget::hide();
 }
 
 void

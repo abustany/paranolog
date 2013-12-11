@@ -7,8 +7,8 @@ class SettingsWindow : public QWidget {
 public:
     SettingsWindow(QWidget *parent = 0);
 
-public slots:
-    void hide();
+protected:
+    virtual void hideEvent(QHideEvent *event);
 
 private slots:
     void update();

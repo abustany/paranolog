@@ -29,11 +29,7 @@ SOURCES += \
 
 RESOURCES += paranolog.qrc
 
-QMAKE_INFO_PLIST = paranolog.plist
-ICON = icons/paranolog.icns
-
-icns.depends = icons/tomato.svg
-icns.commands = ./icons/generate_osx_icons.rb
-icns.target = icons/paranolog.icns
-
-QMAKE_EXTRA_TARGETS += icns
+macx {
+	QMAKE_INFO_PLIST = paranolog.plist
+	ICON = icons/paranolog.icns
+}

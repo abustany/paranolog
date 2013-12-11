@@ -30,6 +30,7 @@ SOURCES += \
 RESOURCES += paranolog.qrc
 
 macx {
+	TARGET = ParanoLog
 	QMAKE_INFO_PLIST = paranolog.plist
 	ICON = icons/paranolog.icns
 }

@@ -13,6 +13,7 @@ HEADERS += \
 	src/settings.h \
 	src/settingswindow.h \
 	src/statusicon.h \
+	src/utils.h \
 	src/workdb.h
 
 SOURCES += \
@@ -23,6 +24,7 @@ SOURCES += \
 	src/settings.cpp \
 	src/settingswindow.cpp \
 	src/statusicon.cpp \
+	src/utils.cpp \
 	src/workdb.cpp
 
 RESOURCES += paranolog.qrc

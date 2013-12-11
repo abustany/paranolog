@@ -1,5 +1,7 @@
 #include "logwindow.h"
 
+#include "utils.h"
+
 static const QString DefaultStyleSheet = QString::fromLatin1(
     "h1 {\n"
     "  font-size: medium;\n"
@@ -24,9 +26,9 @@ LogWindow::LogWindow(WorkDb *db, QWidget *parent)
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
 
-    QPushButton *closeButton = new QPushButton(tr("Close"));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(hide()));
-    buttonLayout->addWidget(closeButton);
+#ifndef Q_OS_MAC // on mac people just close windows
+    addButtonToLayout(buttonLayout, tr("Close"), this, SLOT(hide()));
+#endif // Q_OS_MAC
 
     mainLayout->addLayout(buttonLayout);
 

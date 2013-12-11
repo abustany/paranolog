@@ -23,7 +23,11 @@ StatusIcon::StatusIcon()
     m_contextMenu->addAction(tr("Show settings"), this, SIGNAL(showSettings()));
     m_contextMenu->addAction(tr("Quit"), this, SIGNAL(quit()));
 
+    // On OS X, we don't want a context menu since the top menu bar icons behave
+    // as menus and we want to use the clic events for showing the nag window
+#ifndef Q_OS_MAC
     setContextMenu(m_contextMenu.data());
+#endif // Q_OS_MAC
 
     setToolTip(QCoreApplication::applicationName());
 

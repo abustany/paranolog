@@ -1,4 +1,5 @@
 #include "nagwindow.h"
+#include "utils.h"
 
 NagWindow::NagWindow(QWidget *parent)
     : QWidget(parent)
@@ -15,18 +16,16 @@ NagWindow::NagWindow(QWidget *parent)
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
 
-    QPushButton *goAwayButton = new QPushButton(tr("Go away"));
-    connect(goAwayButton, SIGNAL(clicked()), this, SLOT(onGoAwayClicked()));
-    buttonLayout->addWidget(goAwayButton);
-
-    QPushButton *saveButton = new QPushButton(tr("Save"));
-    saveButton->setShortcut(QKeySequence::Save);
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(onSaveClicked()));
-    buttonLayout->addWidget(saveButton);
+    addButtonToLayout(buttonLayout, tr("Go away"), this, SLOT(onGoAwayClicked()));
+    addButtonToLayout(buttonLayout, tr("Save"), this, SLOT(onSaveClicked()));
 
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
+
+#ifdef Q_OS_MAC
+    setupMacLayout(mainLayout);
+#endif // Q_OS_MAC
 
     setWindowTitle(tr("ParanoLog report"));
 }
@@ -48,6 +47,23 @@ NagWindow::makeTitle() const
 }
 
 void
+NagWindow::setupMacLayout(QBoxLayout *mainLayout)
+{
+    mainLayout->addWidget(makeSeparator());
+
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
+    addButtonToLayout(buttonLayout, tr("Show log"), this, SIGNAL(showLog()));
+    addButtonToLayout(buttonLayout, tr("Show settings"), this, SIGNAL(showSettings()));
+    mainLayout->addLayout(buttonLayout);
+
+    mainLayout->addWidget(makeSeparator());
+
+    buttonLayout = new QHBoxLayout;
+    addButtonToLayout(buttonLayout, tr("Quit"), this, SLOT(onQuitClicked()));
+    mainLayout->addLayout(buttonLayout);
+}
+
+void
 NagWindow::onGoAwayClicked()
 {
     hide();
@@ -60,4 +76,15 @@ NagWindow::onSaveClicked()
     emit newData(m_lastNag, now, m_document->toPlainText());
     m_lastNag = now;
     hide();
+}
+
+void
+NagWindow::onQuitClicked()
+{
+    const QString appName = QApplication::applicationName();
+    const QString msg = tr("Do you really want to quit %1?").arg(appName);
+
+    if (QMessageBox::question(this, appName, msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
+        qApp->quit();
+    }
 }

@@ -1,6 +1,7 @@
 #include "settingswindow.h"
 
 #include "settings.h"
+#include "utils.h"
 
 SettingsWindow::SettingsWindow(QWidget *parent)
     : QWidget(parent)
@@ -17,9 +18,9 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
 
-    QPushButton *closeButton = new QPushButton(tr("Close"));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(hide()));
-    buttonLayout->addWidget(closeButton);
+#ifndef Q_OS_MAC // on mac people are used to just close setting windows
+    addButtonToLayout(buttonLayout, tr("Close"), this, SLOT(hide()));
+#endif
 
     mainLayout->addLayout(buttonLayout);
 

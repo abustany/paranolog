@@ -20,6 +20,9 @@ Paranolog::Paranolog()
     connect(m_statusIcon.data(), SIGNAL(quit()),
             qApp, SLOT(quit()));
 
+    connect(m_nagWindow.data(), SIGNAL(showLog()), this, SLOT(showLog()));
+    connect(m_nagWindow.data(), SIGNAL(showSettings()), this, SLOT(showSettings()));
+
     m_nagTimer.setSingleShot(false);
     m_nagTimer.setInterval(Settings::get()->nagInterval());
     connect(&m_nagTimer, SIGNAL(timeout()), this, SLOT(onNagTimerTimeout()));

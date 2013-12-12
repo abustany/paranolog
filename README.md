@@ -26,3 +26,8 @@ needed to generate the icon bundle. You'll also need XCode to compile the code.
 qmake
 xcodebuild clean install
 ```
+
+If you want to make the generated bundle distributable to people who don't have
+the Qt frameworks already installed, you need to run the `macdeployqt` tool on
+it. See [the documentation of macdeployqt](https://qt-project.org/doc/qt-4.8/deployment-mac.html)
+for more information.
